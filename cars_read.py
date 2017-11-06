@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-data = open("cars.csv", 'r')
+data = open("cars_test.csv", 'r')
 lines = data.readlines()
 
 def car_data_lists(lines):
@@ -42,15 +42,42 @@ def make_since_year(lines, make, year):
 
 	return "The amount of %ss since %s is %s" % (make, year, count)
 
-# def popular_color(lines):
-# 	car_colors = []
-# 	color_list = []
-# 	for i in range(1, len(lines)):
-# 		info = lines[i].rstrip().split(",")
-# 		if color 
+def max_number_spot(numbers):
+	current_max = numbers[0]
+	for n in numbers:
+		if n > current_max:
+			current_max = n
+
+	return current_max
+
+def popular_color(lines):
+	car_colors = []
+	color_list = []
+	for i in range(1, len(lines)):
+		info = lines[i].rstrip().split(",")
+		if info[4] not in color_list:
+			color_list.append(info[4])
+
+	total_of_color = []
+	for i in range(0, len(color_list)):
+		total = 0
+		for k in range(0, len(lines)):
+			info = lines[k].rstrip().split(",")
+			if color_list[i] == info[4]:
+				total += 1
+		total_of_color.append(total)
+
+	for i in range(0, len(total_of_color)):
+		maximum = max(total_of_color)
+		for k in range(0, len(total_of_color)):
+			if maximum == total_of_color[k]:
+				return color_list[k]
+
+
 
 
 cars_in_year(lines, 2006)
 print make_since_year(lines, "Toyota", 2000)
-
+print popular_color(lines)
+popular_color(lines)
 
