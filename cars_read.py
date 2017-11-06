@@ -66,6 +66,7 @@ def all_data_of_group(lines, info_spot):
 		info = lines[i].rstrip().split(",")
 		if info[info_spot] not in group_list:
 			group_list.append(info[info_spot])
+
 	return group_list
 
 def number_of_each_data(lines, info_spot):
@@ -87,5 +88,6 @@ def number_of_each_data(lines, info_spot):
 
 print max_data(lines, 4)
 print number_of_each_data(lines, 4)
+print all_data_of_group(lines, 4)
 
 
