@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-data = open("cars_test.csv", 'r')
+data = open("cars.csv", 'r')
 lines = data.readlines()
 
 def car_data_lists(lines):
@@ -50,34 +50,42 @@ def max_number_spot(numbers):
 
 	return current_max
 
-def popular_color(lines):
-	car_colors = []
-	color_list = []
+def max_data(lines, info_spot):
+	group_list = all_data_of_group(lines, info_spot)
+	total_of_data = number_of_each_data(lines, info_spot)
+
+	for i in range(0, len(total_of_data)):
+		maximum = max(total_of_data)
+		for k in range(0, len(total_of_data)):
+			if maximum == total_of_data[k]:
+				return group_list[k]
+
+def all_data_of_group(lines, info_spot):
+	group_list = []
 	for i in range(1, len(lines)):
 		info = lines[i].rstrip().split(",")
-		if info[4] not in color_list:
-			color_list.append(info[4])
+		if info[info_spot] not in group_list:
+			group_list.append(info[info_spot])
+	return group_list
 
-	total_of_color = []
-	for i in range(0, len(color_list)):
+def number_of_each_data(lines, info_spot):
+	group_list = all_data_of_group(lines, info_spot)
+
+	total_of_data = []
+	for i in range(0, len(group_list)):
 		total = 0
 		for k in range(0, len(lines)):
 			info = lines[k].rstrip().split(",")
-			if color_list[i] == info[4]:
+			if group_list[i] == info[info_spot]:
 				total += 1
-		total_of_color.append(total)
+		total_of_data.append(total)
 
-	for i in range(0, len(total_of_color)):
-		maximum = max(total_of_color)
-		for k in range(0, len(total_of_color)):
-			if maximum == total_of_color[k]:
-				return color_list[k]
+	return total_of_data
 
 
 
 
-cars_in_year(lines, 2006)
-print make_since_year(lines, "Toyota", 2000)
-print popular_color(lines)
-popular_color(lines)
+print max_data(lines, 4)
+print number_of_each_data(lines, 4)
+
 
